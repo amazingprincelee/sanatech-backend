@@ -58,34 +58,34 @@ const submitContact = async (req, res, next) => {
       `
     };
 
-    // Attempt to send email notification (with bypass mechanism)
-    let emailResult = { success: false, error: 'Email service not attempted' };
-    
-    try {
-      emailResult = await sendEmail(emailOptions);
-      
-      // Update contact record with email status
-      await Contact.findByIdAndUpdate(contact._id, {
-        emailSent: emailResult.success,
-        emailError: emailResult.success ? null : emailResult.error
-      });
+    // Send email notification asynchronously (non-blocking)
+    setImmediate(async () => {
+      try {
+        const emailResult = await sendEmail(emailOptions);
+        
+        // Update contact record with email status
+        await Contact.findByIdAndUpdate(contact._id, {
+          emailSent: emailResult.success,
+          emailError: emailResult.success ? null : emailResult.error
+        });
 
-      if (emailResult.success) {
-        console.log('✅ Email notification sent successfully');
-      } else {
-        console.warn('⚠️ Email notification failed, but contact saved:', emailResult.error);
+        if (emailResult.success) {
+          console.log('✅ Email notification sent successfully for contact:', contact._id);
+        } else {
+          console.warn('⚠️ Email notification failed for contact:', contact._id, emailResult.error);
+        }
+      } catch (emailError) {
+        console.warn('⚠️ Email notification error for contact:', contact._id, emailError.message);
+        
+        // Update contact record with email error
+        await Contact.findByIdAndUpdate(contact._id, {
+          emailSent: false,
+          emailError: emailError.message
+        });
       }
-    } catch (emailError) {
-      console.warn('⚠️ Email notification bypassed due to error:', emailError.message);
-      
-      // Update contact record with email error
-      await Contact.findByIdAndUpdate(contact._id, {
-        emailSent: false,
-        emailError: emailError.message
-      });
-    }
+    });
 
-    // Always return success response (email failure doesn't affect contact submission)
+    // Return immediate success response (email sending happens in background)
     res.status(201).json({
       status: 'success',
       message: 'Contact form submitted successfully',
@@ -98,10 +98,8 @@ const submitContact = async (req, res, next) => {
           createdAt: contact.createdAt
         },
         emailNotification: {
-          sent: emailResult.success,
-          message: emailResult.success 
-            ? 'Admin notification sent' 
-            : 'Contact saved, email notification bypassed'
+          status: 'processing',
+          message: 'Email notification is being sent in the background'
         }
       }
     });

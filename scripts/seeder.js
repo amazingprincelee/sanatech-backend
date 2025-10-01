@@ -97,6 +97,148 @@ const sampleContent = [
   }
 ];
 
+const seedContent = async () => {
+  try {
+    // Clear existing content
+    await Content.deleteMany({});
+    console.log('Existing content cleared');
+
+    // Sample content data based on existing frontend content
+     const contentData = [
+       {
+         type: 'hero',
+         title: 'Welcome to Sanatech Global',
+         subtitle: 'Engineering Excellence in Every Project',
+         description: 'Leading provider of comprehensive engineering solutions across electrical, mechanical, instrumentation, and renewable energy sectors.',
+         image: '/images/hero-bg.jpg',
+         metadata: {
+           isActive: true,
+           priority: 10,
+           category: 'homepage'
+         },
+         seo: {
+           metaTitle: 'Sanatech Global - Engineering Excellence',
+           metaDescription: 'Professional engineering services including electrical, mechanical, instrumentation, and renewable energy solutions.',
+           keywords: ['engineering', 'electrical', 'mechanical', 'instrumentation', 'renewable energy']
+         }
+       },
+       {
+         type: 'mission',
+         title: 'Our Mission',
+         subtitle: 'Commitment to Excellence',
+         description: 'Our mission at Sanatech Global is to uphold the highest standards of work ethics by ensuring productivity, proactivity, and accountability in every project we undertake. We are dedicated to delivering uncompromising quality, safety, and reliability, while giving each project our utmost attention through a detail-oriented and professional approach.',
+         image: '/images/mission.png',
+         metadata: {
+           isActive: true,
+           priority: 9,
+           category: 'company'
+         },
+         seo: {
+           metaTitle: 'Our Mission - Sanatech Global',
+           metaDescription: 'Learn about Sanatech Global\'s mission and commitment to excellence in engineering.',
+           keywords: ['mission', 'work ethics', 'quality', 'safety', 'reliability']
+         }
+       },
+       {
+          type: 'about',
+          title: 'Our Core Values',
+          subtitle: 'Foundation of Our Success',
+          description: 'The core values that guide our operations and define our company culture.',
+          image: '/images/core-values.jpg',
+          features: [
+            { title: 'Integrity and Transparency', description: 'We maintain the highest ethical standards in all our operations.' },
+            { title: 'Quality and Excellence', description: 'We strive for excellence in every project we undertake.' },
+            { title: 'Innovation and Continuous Improvement', description: 'We embrace innovation and continuously improve our processes.' },
+            { title: 'Customer Satisfaction', description: 'Our clients\' satisfaction is our top priority.' },
+            { title: 'Safety and Environmental Responsibility', description: 'We prioritize safety and environmental stewardship.' }
+          ],
+          metadata: {
+            isActive: true,
+            priority: 8,
+            category: 'company'
+          },
+          seo: {
+            metaTitle: 'Core Values - Sanatech Global',
+            metaDescription: 'Discover the core values that drive Sanatech Global\'s commitment to excellence.',
+            keywords: ['core values', 'integrity', 'quality', 'innovation', 'safety']
+          }
+        },
+       {
+         type: 'about',
+         title: 'About Sanatech Global',
+         subtitle: 'Your Trusted Engineering Partner',
+         description: 'With years of experience in the engineering industry, we deliver innovative solutions that meet the highest standards of quality and safety.',
+         image: '/images/about-us.jpg',
+         metadata: {
+           isActive: true,
+           priority: 7,
+           category: 'company'
+         },
+         seo: {
+           metaTitle: 'About Sanatech Global - Engineering Experts',
+           metaDescription: 'Learn about our engineering expertise and commitment to delivering quality solutions.',
+           keywords: ['about', 'engineering company', 'expertise', 'quality']
+         }
+       },
+       {
+         type: 'service',
+         title: 'Electrical Engineering',
+         subtitle: 'Power Systems & Solutions',
+         description: 'Comprehensive electrical engineering services including power generation, transmission, distribution, and testing.',
+         image: '/images/electrical-service.jpg',
+         features: [
+           { title: 'Power system design and analysis', description: 'Complete electrical system design and analysis services.' },
+           { title: 'Electrical installation and commissioning', description: 'Professional installation and commissioning of electrical systems.' },
+           { title: 'Testing and maintenance services', description: 'Comprehensive testing and maintenance for electrical equipment.' },
+           { title: 'Energy efficiency solutions', description: 'Innovative solutions to improve energy efficiency.' }
+         ],
+         metadata: {
+           isActive: true,
+           priority: 6,
+           category: 'services'
+         },
+         seo: {
+           metaTitle: 'Electrical Engineering Services - Sanatech Global',
+           metaDescription: 'Professional electrical engineering services including power systems, installation, and testing.',
+           keywords: ['electrical engineering', 'power systems', 'electrical installation']
+         }
+       },
+       {
+         type: 'service',
+         title: 'Mechanical Engineering',
+         subtitle: 'Mechanical Systems & Solutions',
+         description: 'Professional mechanical engineering services including HVAC, piping systems, and mechanical equipment installation.',
+         image: '/images/mechanical-service.jpg',
+         features: [
+           { title: 'HVAC system design and installation', description: 'Complete HVAC system design and installation services.' },
+           { title: 'Piping and plumbing systems', description: 'Professional piping and plumbing system solutions.' },
+           { title: 'Mechanical equipment commissioning', description: 'Expert commissioning of mechanical equipment.' },
+           { title: 'Maintenance and repair services', description: 'Comprehensive maintenance and repair services.' }
+         ],
+         metadata: {
+           isActive: true,
+           priority: 5,
+           category: 'services'
+         },
+         seo: {
+           metaTitle: 'Mechanical Engineering Services - Sanatech Global',
+           metaDescription: 'Expert mechanical engineering services including HVAC, piping, and equipment installation.',
+           keywords: ['mechanical engineering', 'HVAC', 'piping systems', 'commissioning']
+         }
+       }
+     ];
+
+    // Insert content data
+    const createdContent = await Content.insertMany(contentData);
+    console.log(`${createdContent.length} content items created successfully`);
+
+    return createdContent;
+  } catch (error) {
+    console.error('Error seeding content:', error);
+    throw error;
+  }
+};
+
 const seedData = async () => {
   try {
     await connectDB();
@@ -118,9 +260,9 @@ const seedData = async () => {
     const admin = await Admin.create(adminData);
     console.log(`✅ Admin created: ${admin.email}`);
 
-    // Create sample content
+    // Create sample content using the new function
     console.log('📝 Creating sample content...');
-    const content = await Content.insertMany(sampleContent);
+    const content = await seedContent();
     console.log(`✅ ${content.length} content items created`);
 
     console.log('🎉 Database seeded successfully!');

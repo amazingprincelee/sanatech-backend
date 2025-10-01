@@ -42,15 +42,7 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Stricter rate limiting for contact form
-const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // limit each IP to 5 contact submissions per hour
-  message: {
-    status: 'error',
-    message: 'Too many contact form submissions, please try again later.'
-  }
-});
+
 
 // CORS
 app.use(cors({
@@ -75,7 +67,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // API Routes
-app.use('/api/contact', contactLimiter, require('./routes/contact'));
+app.use('/api/contact', require('./routes/contact'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/content', require('./routes/content'));
 

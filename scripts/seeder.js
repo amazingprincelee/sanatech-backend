@@ -64,6 +64,126 @@ const sampleContent = [
     }
   },
   {
+    type: 'service',
+    title: 'Instrumentation and Control Services',
+    subtitle: 'Advanced instrumentation, control systems, and automation',
+    description: 'Advanced instrumentation, control systems, and automation for industrial processes.',
+    image: '/images/main-services/Instrumentation and Control System 1.jpg',
+    icon: 'md md-precision-manufacturing',
+    features: [
+      { title: 'Process Control Systems', description: 'Advanced automation solutions', icon: 'fas fa-cogs' },
+      { title: 'Instrumentation Design', description: 'Precision measurement systems', icon: 'fas fa-ruler' },
+      { title: 'SCADA Systems', description: 'Supervisory control and data acquisition', icon: 'fas fa-desktop' },
+      { title: 'PLC Programming', description: 'Programmable logic controllers', icon: 'fas fa-microchip' }
+    ],
+    metadata: {
+      category: 'instrumentation',
+      tags: ['control', 'automation', 'scada', 'plc'],
+      priority: 9,
+      isActive: true
+    }
+  },
+  {
+    type: 'service',
+    title: 'Mechanical Services',
+    subtitle: 'Piping, welding, equipment services, and maintenance',
+    description: 'Piping, welding, equipment services, and maintenance for industrial applications.',
+    image: '/images/main-services/Mechanical Pipeline System 1.jpg',
+    icon: 'fas fa-tools',
+    features: [
+      { title: 'Pipeline Installation', description: 'Industrial piping systems', icon: 'fas fa-pipe' },
+      { title: 'Welding Services', description: 'Certified welding professionals', icon: 'fas fa-fire' },
+      { title: 'Equipment Maintenance', description: 'Preventive and corrective maintenance', icon: 'fas fa-wrench' },
+      { title: 'Fabrication', description: 'Custom mechanical fabrication', icon: 'fas fa-hammer' }
+    ],
+    metadata: {
+      category: 'mechanical',
+      tags: ['piping', 'welding', 'maintenance', 'fabrication'],
+      priority: 8,
+      isActive: true
+    }
+  },
+  {
+    type: 'service',
+    title: 'Renewable Energy Sustainability',
+    subtitle: 'Energy, installation, and implementation of renewable energy',
+    description: 'Energy, installation, and implementation of renewable energy solutions.',
+    image: '/images/main-services/Solar Panel Installation 2.jpg',
+    icon: 'fas fa-solar-panel',
+    features: [
+      { title: 'Solar Panel Installation', description: 'Photovoltaic system design and installation', icon: 'fas fa-sun' },
+      { title: 'Wind Energy Systems', description: 'Wind turbine installation and maintenance', icon: 'fas fa-wind' },
+      { title: 'Energy Storage', description: 'Battery and energy storage solutions', icon: 'fas fa-battery-full' },
+      { title: 'Grid Integration', description: 'Renewable energy grid connection', icon: 'fas fa-plug' }
+    ],
+    metadata: {
+      category: 'renewable',
+      tags: ['solar', 'wind', 'energy', 'sustainability'],
+      priority: 7,
+      isActive: true
+    }
+  },
+  {
+    type: 'service',
+    title: 'Borehole and Water Treatment Services',
+    subtitle: 'Geological surveys, drilling, and water treatment systems',
+    description: 'Geological surveys, drilling, and water treatment systems for clean water access.',
+    image: '/images/main-services/Water Treament Plant 1.jpg',
+    icon: 'fas fa-water',
+    features: [
+      { title: 'Borehole Drilling', description: 'Professional water well drilling', icon: 'fas fa-drill' },
+      { title: 'Water Treatment', description: 'Water purification and treatment systems', icon: 'fas fa-filter' },
+      { title: 'Geological Surveys', description: 'Site assessment and analysis', icon: 'fas fa-search' },
+      { title: 'Pump Installation', description: 'Water pump systems and maintenance', icon: 'fas fa-tint' }
+    ],
+    metadata: {
+      category: 'water',
+      tags: ['borehole', 'drilling', 'treatment', 'geological'],
+      priority: 6,
+      isActive: true
+    }
+  },
+  {
+    type: 'service',
+    title: 'Civil Engineering Services',
+    subtitle: 'Infrastructure development for buildings and construction',
+    description: 'Infrastructure development for buildings and construction projects.',
+    image: '/images/main-services/Residential Building Under Construction.JPG',
+    icon: 'fas fa-hard-hat',
+    features: [
+      { title: 'Structural Design', description: 'Building and infrastructure design', icon: 'fas fa-building' },
+      { title: 'Construction Management', description: 'Project management and oversight', icon: 'fas fa-tasks' },
+      { title: 'Site Preparation', description: 'Land development and preparation', icon: 'fas fa-bulldozer' },
+      { title: 'Quality Control', description: 'Construction quality assurance', icon: 'fas fa-check-circle' }
+    ],
+    metadata: {
+      category: 'civil',
+      tags: ['construction', 'infrastructure', 'design', 'management'],
+      priority: 5,
+      isActive: true
+    }
+  },
+  {
+    type: 'service',
+    title: 'Communication System Services',
+    subtitle: 'Structured cabling, networking, surveillance, and cybersecurity',
+    description: 'Structured cabling, networking, surveillance, and cybersecurity solutions.',
+    image: '/images/main-services/Instrumentation and Control System 6.jpg',
+    icon: 'fas fa-satellite-dish',
+    features: [
+      { title: 'Network Infrastructure', description: 'LAN/WAN setup and configuration', icon: 'fas fa-network-wired' },
+      { title: 'CCTV Systems', description: 'Surveillance and security systems', icon: 'fas fa-video' },
+      { title: 'Structured Cabling', description: 'Data, voice, and video networks', icon: 'fas fa-ethernet' },
+      { title: 'Cybersecurity', description: 'Network security and monitoring', icon: 'fas fa-shield-alt' }
+    ],
+    metadata: {
+      category: 'communication',
+      tags: ['networking', 'cctv', 'cabling', 'cybersecurity'],
+      priority: 4,
+      isActive: true
+    }
+  },
+  {
     type: 'mission',
     title: 'Our Mission',
     subtitle: 'Empowering industries through innovative engineering solutions',
@@ -229,7 +349,7 @@ const seedContent = async () => {
      ];
 
     // Insert content data
-    const createdContent = await Content.insertMany(contentData);
+    const createdContent = await Content.insertMany(sampleContent);
     console.log(`${createdContent.length} content items created successfully`);
 
     return createdContent;

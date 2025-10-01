@@ -70,6 +70,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/content', require('./routes/content'));
+app.use('/api/upload', require('./routes/upload'));
 
 // Handle undefined routes
 app.all('*', (req, res) => {
